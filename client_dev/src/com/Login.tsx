@@ -2,12 +2,15 @@ import { useState } from 'react'
 import { useLocalStore } from 'react-confection'
 import { apiFetch } from '@api/api'
 
+type User = { email?: string, [key: string]: any }
+type StoreType = { user?: User, token?: string | null }
+
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [otp, setOtp] = useState('')
   const [log, setLog] = useState<string[]>([])
-  const Store = useLocalStore()
+  const Store = useLocalStore<StoreType>()
 
   const appendLog = (msg: string) => setLog(l => [...l, msg])
 
@@ -25,7 +28,10 @@ export default function Login() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, otp }),
-    }).then(r => r.json())
+    })
+    .then((r: any) => r.json())
+    .catch(console.error)
+
     if (res.token) {
       Store.token = res.token
       if (res.user) Store.user = res.user
@@ -38,7 +44,7 @@ export default function Login() {
 
   const logout = () => {
     Store.token = null
-    Store.user = null
+    Store.user = undefined
     appendLog('Logged out')
   }
 

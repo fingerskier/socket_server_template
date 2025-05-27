@@ -13,7 +13,7 @@ export default function Users() {
 
   
   useEffect(() => {
-    user.list()
+    user.list({})
     .then(setUsers)
     .catch(console.error)
 

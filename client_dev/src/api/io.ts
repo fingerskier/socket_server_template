@@ -77,7 +77,7 @@ socket.on('server:start', (event) => {
 
 
 export function on(event: string, callback: (event: any) => void) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     socket.on(event, (event) => {
       callback(event)
       resolve(event)

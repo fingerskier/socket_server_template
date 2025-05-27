@@ -3,10 +3,10 @@ import { localStore } from 'react-confection'
 
 const Store = localStore()
 
-function rpc(event, payload) {
-  return new Promise((resolve, reject) => {
+function rpc(event: string, payload: any): Promise<any> {
+  return new Promise((resolve) => {
     Store.ioLoading = true
-    socket.emit(event, payload, (res) => {
+    socket.emit(event, payload, (res: any) => {
       Store.ioLoading = false
       resolve(res)
     })
@@ -15,9 +15,9 @@ function rpc(event, payload) {
 
 
 export const user = {
-  create: (payload) => rpc('user:create', payload),
-  read: (payload) => rpc('user:read', payload),
-  list: (payload) => rpc('user:list', payload),
-  update: (payload) => rpc('user:update', payload),
-  delete: (payload) => rpc('user:delete', payload),
+  create: (payload: any) => rpc('user:create', payload),
+  read: (payload: any) => rpc('user:read', payload),
+  list: (payload: any) => rpc('user:list', payload),
+  update: (payload: any) => rpc('user:update', payload),
+  delete: (payload: any) => rpc('user:delete', payload),
 }
