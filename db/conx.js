@@ -1,5 +1,6 @@
 import { Pool } from 'pg'
 import { EventEmitter } from 'events'
+import format from 'pg-format'
 
 let pool
 
@@ -11,6 +12,7 @@ function getPool() {
   if (!pool) pool = new Pool({ connectionString: process.env.DATABASE_URL })
   return pool
 }
+
 
 /**
  * @description Shorthand query helper – same signature as pg.query().
@@ -28,6 +30,7 @@ export default function getQuery() {
  * @returns {EventEmitter} ~ events: event, error, connect, reconnect, close; .close() to stop listening
  */
 export async function listen(channel) {
+  console.log('Setting up PG event-listener', channel)
   try {
     const ear = new EventEmitter()
     const pool = getPool()

@@ -1,7 +1,7 @@
 import users from '../db/users.js'
 
 
-export default async function listenRPC(io) {
+export default function initialize(io) {
   io.on('connection', socket=>{
     console.log('socket conx:', socket.id, socket.user)
 

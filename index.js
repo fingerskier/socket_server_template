@@ -8,7 +8,8 @@ import jwt from 'jsonwebtoken'
 import os from 'os'
 
 import apiRouter from './route/index.js'
-import listenRPC from './IO/RPC.js'
+import socketEvents from './io/eventor.js'
+import socketRPC from './io/rpc.js'
 import cookieParser from 'cookie-parser'
 
 const app = express()
@@ -50,7 +51,8 @@ app.use(express.static('public'))
 
 app.route('/api', apiRouter)
 
-listenRPC(io).catch(console.error)
+socketRPC(io)
+socketEvents(io)
 
 server.listen(process.env.PORT || 3000, () => {
   console.log('Server running on port', process.env.PORT || 3000)
