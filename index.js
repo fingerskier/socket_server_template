@@ -3,13 +3,11 @@ import 'dotenv/config'
 import http from 'http'
 import express from 'express'
 import { Server } from 'socket.io'
-import { Pool } from 'pg'
 import cors from 'cors'
 import jwt from 'jsonwebtoken'
 import os from 'os'
 
-import setupEmailer from './email.js'
-import setupOtpLogin from './otp-login.js'
+import apiRouter from './route/index.js'
 import listenRPC from './IO/RPC.js'
 import cookieParser from 'cookie-parser'
 
@@ -45,15 +43,14 @@ io.use((socket, next) => {
   })
 })
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL })
 
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.static('public'))
 
-setupEmailer(app, pool)
-setupOtpLogin(app, pool)
-listenRPC(io, pool).catch(console.error)
+app.route('/api', apiRouter)
+
+listenRPC(io).catch(console.error)
 
 server.listen(process.env.PORT || 3000, () => {
   console.log('Server running on port', process.env.PORT || 3000)
