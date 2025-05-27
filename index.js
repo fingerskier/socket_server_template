@@ -45,11 +45,12 @@ io.use((socket, next) => {
 })
 
 
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.static('public'))
 
-app.route('/api', apiRouter)
+app.use('/api', apiRouter)
 
 socketRPC(io)
 socketEvents(io)

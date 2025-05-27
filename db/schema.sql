@@ -19,3 +19,12 @@ $$;
 CREATE TRIGGER users_changed_trigger
   AFTER INSERT OR UPDATE OR DELETE ON users
   FOR EACH ROW EXECUTE FUNCTION users_changed();
+
+
+CREATE TABLE IF NOT EXISTS login_otps (
+  user_id INTEGER UNIQUE REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  otp TEXT NOT NULL,
+  expires_at TIMESTAMP NOT NULL DEFAULT (now() + interval '10 minutes')
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_login_otps_user_id ON login_otps(user_id);

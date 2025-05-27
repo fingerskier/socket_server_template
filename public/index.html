@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Socket.io Server</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <form method="POST" action="/api/otp/send">
+      <input type="email" name="email" placeholder="Email">
+      <button type="submit">Send Passcode</button>
+    </form>
+
+    <form method="POST" action="/api/otp/login">
+      <input type="email" name="email" placeholder="Email">
+      <input type="text" name="otp" placeholder="Passcode">
+      <button type="submit">Login</button>
+    </form>
+  </body>
+</html>

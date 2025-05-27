@@ -9,6 +9,8 @@ export default defineConfig({
       '@': '/src',
       '@com': '/src/com',
       '@assets': '/src/assets',
+      '@api': '/src/api',
+      '@style': '/src/style',
     },
   },
 })

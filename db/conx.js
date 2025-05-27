@@ -21,7 +21,7 @@ function getPool() {
  * @returns {Promise<QueryResult>}
  */
 export default function getQuery() {
-  return getPool().query
+  return (sql, params) => getPool().query(sql, params)
 }
 
 /**
@@ -33,7 +33,7 @@ export async function listen(channel) {
   console.log('Setting up PG event-listener', channel)
   try {
     const ear = new EventEmitter()
-    const pool = getPool()
+    const pool = await getPool()
 
     const attach = async () => {
       const client = await pool.connect()

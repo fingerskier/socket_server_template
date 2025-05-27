@@ -2,23 +2,26 @@ import { listen } from '../db/conx.js'
 
 const channel = 'users_changed'
 
-const userListener = await listen(channel)
+const usersListener = await listen(channel)
 
 
 export default function initialize(IO) {
-  userListener.on('event', (data) => {
-    console.log(data)
-    IO.emit('user', data)
+  usersListener.on('event', (data) => {
+    IO.emit('users', data)
   })
+
   
-  userListener.on('error', err=>{
+  usersListener.on('error', err=>{
     console.error(err)
     IO.emit('error', err)
   })
   
-  userListener.on('connect', console.log)
+  usersListener.on('connect', console.log)
   
-  userListener.on('reconnect', console.log)
+  usersListener.on('reconnect', console.log)
   
-  userListener.on('close', console.log)
+  usersListener.on('close', console.log)
+  
+
+  IO.emit('server:start', (new Date()).toISOString())
 }

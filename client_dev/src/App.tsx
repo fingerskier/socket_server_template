@@ -8,14 +8,13 @@ import './App.css'
 const DEFAULT_CONTEXT = ''
 
 
-function App() {
+export default function App() {
   const Store = useLocalStore()
 
   const handleHashChange = () => {
     const newContext = window.location.hash.slice(1) || DEFAULT_CONTEXT
     const newQuery = Object.fromEntries(new URLSearchParams(window.location.search))
 
-    console.log('newContext', newContext)
     Store.context = newContext
     Store.query = newQuery
   }
@@ -39,5 +38,3 @@ function App() {
      <Footer />
   </>
 }
-
-export default App

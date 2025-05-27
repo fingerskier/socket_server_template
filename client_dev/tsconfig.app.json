@@ -19,18 +19,8 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-
-    "compilerOptions": {
-      "baseUrl": ".",
-      "paths": {
-        "@/*": ["src/*"],
-        "@com/*": ["src/com/*"],
-        "@assets/*": ["src/assets/*"]
-      }
-    }
+    "noUncheckedSideEffectImports": true
   },
   "include": ["src"]
 }

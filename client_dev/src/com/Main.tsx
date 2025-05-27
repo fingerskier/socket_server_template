@@ -1,16 +1,24 @@
-import React from 'react'
+import {useEffect} from 'react'
 import { useLocalStore } from 'react-confection'
+import Users from '@com/Users'
+import Login from '@com/Login'
+
+import style from '@style/Main.module.css'
 
 
 export default function Main() {
   const Store = useLocalStore()
 
-  return <main>
-    Main
+  useEffect(() => {
+    if (!Store.token) {
+      window.location.href = '#Login'
+    }
+  }, [])
 
-    <ul>
+  return <main>
+    <ul className={style.menu}>
       <li>
-        <a href="#login">Login</a>
+        <a href="#Login">Login</a>
       </li>
       <li>
         <a href="#Flarn">Flarn</a>
@@ -18,10 +26,14 @@ export default function Main() {
       <li>
         <a href="#Ghibbet">Ghibbet</a>
       </li>
+      <li>
+        <a href="#Users">Users</a>
+      </li>
     </ul>
 
-    {Store.context === 'login' && <div>Login Mode</div>}
+    {Store.context === 'Login' && <Login />}
     {Store.context === 'Flarn' && <div>Flarn Mode</div>}
     {Store.context === 'Ghibbet' && <div>Ghibbet Mode</div>}
+    {Store.context === 'Users' && <Users />}
   </main>
 }
