@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken'
 const query = getQuery()
 const router = express.Router()
 
-const mailerCallback = (error,info)=>{
+const mailerCallback = (error, info) => {
   if (error) console.error(error)
   console.log(info)
 }
@@ -22,6 +22,9 @@ const transporter = nodemailer.createTransport({
 }, mailerCallback)
 
 
+/**
+ * Request an OTP code via email. Creates a user record if necessary.
+ */
 router.post('/send', async (req, res) => {
   try {
     const { email } = req.body
@@ -64,6 +67,9 @@ router.post('/send', async (req, res) => {
 })
 
 
+/**
+ * Verify an OTP code and issue a JWT session cookie.
+ */
 router.post('/login', async (req, res) => {
   const { email, otp } = req.body
   if (!email || !otp) return res.status(400).json({ error: 'email and otp required' });

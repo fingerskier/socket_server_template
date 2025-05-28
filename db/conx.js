@@ -5,7 +5,7 @@ import format from 'pg-format'
 let pool
 
 /**
- * @description singleton Pool
+ * Lazily create and return a single `pg` Pool instance.
  * @returns {Pool}
  */
 function getPool() {
@@ -15,19 +15,22 @@ function getPool() {
 
 
 /**
- * @description Shorthand query helper – same signature as pg.query().
- * @param {string} text
- * @param {any[]} params
- * @returns {Promise<QueryResult>}
+ * Create a helper around `pool.query` using the shared Pool.
+ *
+ * @returns {(sql: string, params?: any[]) => Promise<import('pg').QueryResult>}
  */
 export default function getQuery() {
   return (sql, params) => getPool().query(sql, params)
 }
 
 /**
- * @description Listen to a Postgres channel and re‑emit NOTIFY payloads.
- * @param {string} channel
- * @returns {EventEmitter} ~ events: event, error, connect, reconnect, close; .close() to stop listening
+ * Listen to a Postgres channel and re‑emit NOTIFY payloads.
+ *
+ * Returned emitter exposes `event`, `error`, `connect`, `reconnect` and `close`
+ * events and also provides a `close()` function to stop listening.
+ *
+ * @param {string} channel - channel name to LISTEN on
+ * @returns {Promise<EventEmitter>}
  */
 export async function listen(channel) {
   console.log('Setting up PG event-listener', channel)

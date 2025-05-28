@@ -1,6 +1,13 @@
 import jwt from 'jsonwebtoken'
 
-
+/**
+ * Express middleware that validates a JWT stored in a cookie.
+ * Adds the decoded user to `req.user` when valid.
+ *
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ * @param {import('express').NextFunction} next
+ */
 export function checkJwtSession(req, res, next) {
   const token = req.cookies?.token
 
