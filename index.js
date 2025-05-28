@@ -1,5 +1,9 @@
 import 'dotenv/config'
 
+/**
+ * Entry point for the Express and Socket.IO server.
+ */
+
 import http from 'http'
 import express from 'express'
 import { Server } from 'socket.io'
